@@ -67,7 +67,7 @@
   ],
   "husky": {
     "hooks": {
-      "pre-commit": "hello world"
+      "pre-commit": "lint-staged"
     }
   },
   "lint-staged": {
