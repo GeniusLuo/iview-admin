@@ -8,8 +8,7 @@
     "test:unit": "vue-cli-service test:unit",
     "test:e2e": "vue-cli-service test:e2e",
     "lint": "vue-cli-service lint",
-    "dev": "vue-cli-service serve --open",
-    "prepare": "husky install"
+    "dev": "vue-cli-service serve --open"
   },
   "dependencies": {
     "axios": "^0.18.0",
@@ -52,7 +51,7 @@
     "eslint-plugin-promise": "^4.2.1",
     "eslint-plugin-standard": "^4.0.0",
     "eslint-plugin-vue": "^6.2.2",
-    "husky": "^7.0.0",
+    "husky": "^4.2.3",
     "less": "^2.7.3",
     "less-loader": "^4.0.5",
     "lint-staged": "^6.0.0",
@@ -64,5 +63,18 @@
     "> 1%",
     "last 2 versions",
     "not ie <= 8"
-  ]
+  ],
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.js": [
+      "vue-cli-service lint"
+    ],
+    "*.vue": [
+      "vue-cli-service lint"
+    ]
+  }
 }
