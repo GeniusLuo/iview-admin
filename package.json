@@ -65,10 +65,8 @@
     "last 2 versions",
     "not ie <= 8"
   ],
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
+  "gitHooks": {
+    "pre-commit": "lint-staged"
   },
   "lint-staged": {
     "*.js": [
