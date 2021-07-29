@@ -65,9 +65,11 @@
         <Option
           v-for="item in columns"
           :value="item.key"
+          v-if="item.key !== 'handle'"
+
           :key="`search-col-${item.key}`"
         >
-          <template v-if="item.key !== 'handle'">
+          <template>
             {{ item.title }}
           </template>
         </Option>
