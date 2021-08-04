@@ -5,8 +5,8 @@
     :rules="rules"
     @keydown.enter.native="handleSubmit"
   >
-    <FormItem prop="userName">
-      <Input v-model="form.userName" placeholder="请输入用户名">
+    <FormItem prop="username">
+      <Input v-model="form.username" placeholder="请输入用户名">
         <span slot="prepend">
           <Icon :size="16" type="ios-person"></Icon>
         </span>
@@ -33,7 +33,9 @@
   </Form>
 </template>
 <script>
-import axios from 'axios'
+import { getcode } from '@/api/login'
+import uuid from 'uuid/v4'
+
 export default {
   name: 'LoginForm',
   props: {
@@ -53,20 +55,30 @@ export default {
   data () {
     return {
       form: {
-        userName: '',
+        username: '',
         password: '',
-        code: ''
+        code: '',
+        sid: ''
       },
       svg: ''
     }
   },
   mounted () {
+    let sid = ''
+    if (localStorage.getItem('sid')) {
+      sid = localStorage.getItem('sid')
+    } else {
+      sid = uuid()
+      localStorage.setItem('sid', sid)
+      this.form.sid = sid
+    }
+    this.$store.commit('setSid', sid)
     this._getCode()
   },
   computed: {
     rules () {
       return {
-        userName: this.userNameRules,
+        username: this.userNameRules,
         password: this.passwordRules
       }
     }
@@ -75,22 +87,19 @@ export default {
     handleSubmit () {
       this.$refs.loginForm.validate((valid) => {
         if (valid) {
-          this.$emit('on-success-valid', {
-            userName: this.form.userName,
-            password: this.form.password
-          })
+          this.$emit('on-success-valid', { ...this.form })
         }
       })
     },
     _getCode () {
-      axios
-        .get('http://localhost:3000/public/getCaptcha?sid=tomic')
-        .then((res) => {
-          const { status, data } = res
-          if (status === 200) {
-            this.svg = data.data
-          }
-        })
+      getcode({
+        sid: this.$store.state.sid
+      }).then((res) => {
+        const { code, data } = res
+        if (code === 200) {
+          this.svg = data
+        }
+      })
     }
   }
 }
