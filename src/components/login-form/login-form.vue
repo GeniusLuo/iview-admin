@@ -20,7 +20,7 @@
       </Input>
     </FormItem>
     <FormItem prop="code">
-      <Input class="immoc-input" type="text" v-model="form.password" placeholder="请输入验证码">
+      <Input class="immoc-input" type="text" v-model="form.code" placeholder="请输入验证码">
         <span slot="prepend">
           <Icon :size="14" type="md-image"></Icon>
         </span>
@@ -33,7 +33,7 @@
   </Form>
 </template>
 <script>
-import { getcode } from '@/api/login'
+import { getCode } from '@/api/login'
 import uuid from 'uuid/v4'
 
 export default {
@@ -70,8 +70,8 @@ export default {
     } else {
       sid = uuid()
       localStorage.setItem('sid', sid)
-      this.form.sid = sid
     }
+    this.form.sid = sid
     this.$store.commit('setSid', sid)
     this._getCode()
   },
@@ -92,9 +92,9 @@ export default {
       })
     },
     _getCode () {
-      getcode({
-        sid: this.$store.state.sid
-      }).then((res) => {
+      getCode(
+        this.$store.state.sid
+      ).then((res) => {
         const { code, data } = res
         if (code === 200) {
           this.svg = data

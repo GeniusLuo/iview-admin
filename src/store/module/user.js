@@ -1,5 +1,4 @@
 import {
-  login,
   logout,
   getUserInfo,
   getMessage,
@@ -9,6 +8,8 @@ import {
   restoreTrash,
   getUnreadCount
 } from '@/api/user'
+
+import { login } from '@/api/login'
 import { setToken, getToken } from '@/libs/util'
 
 export default {
@@ -74,15 +75,18 @@ export default {
   },
   actions: {
     // 登录
-    handleLogin ({ commit }, { userName, password }) {
-      userName = userName.trim()
+    handleLogin ({ commit }, loginInfo) {
       return new Promise((resolve, reject) => {
         login({
-          userName,
-          password
+          ...loginInfo
         }).then(res => {
           const data = res.data
           commit('setToken', data.token)
+          commit('setAvatar', data.pic)
+          commit('setUserName', data.name)
+          commit('setUserId', data._id)
+          commit('setAccess', data.roles)
+          commit('setHasGetInfo', true)
           resolve()
         }).catch(err => {
           reject(err)

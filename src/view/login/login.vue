@@ -28,12 +28,15 @@ export default {
       'getUserInfo'
     ]),
     handleSubmit (options) {
-      this.handleLogin(options).then(res => {
-        this.getUserInfo().then(res => {
-          this.$router.push({
-            name: this.$config.homeName
-          })
+      this.handleLogin(options).then(() => {
+        this.$router.push({
+          name: this.$config.homeName
         })
+        // this.getUserInfo().then(res => {
+        //   this.$router.push({
+        //     name: this.$config.homeName
+        //   })
+        // })
       })
     }
   }
