@@ -37,6 +37,10 @@ export default {
         //     name: this.$config.homeName
         //   })
         // })
+      }).catch(() => {
+        this.$router.push({
+          name: this.$config.homeName
+        })
       })
     }
   }

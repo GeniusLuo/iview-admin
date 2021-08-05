@@ -20,11 +20,21 @@
       </Input>
     </FormItem>
     <FormItem prop="code">
-      <Input class="immoc-input" type="text" v-model="form.code" placeholder="请输入验证码">
+      <Input
+        class="immoc-input"
+        type="text"
+        v-model="form.code"
+        placeholder="请输入验证码"
+      >
         <span slot="prepend">
           <Icon :size="14" type="md-image"></Icon>
         </span>
-        <span class="immoc-code" slot="append" v-html="svg" @click="_getCode"></span>
+        <span
+          class="immoc-code"
+          slot="append"
+          v-html="svg"
+          @click="_getCode"
+        ></span>
       </Input>
     </FormItem>
     <FormItem>
@@ -42,13 +52,38 @@ export default {
     userNameRules: {
       type: Array,
       default: () => {
-        return [{ required: true, message: '账号不能为空', trigger: 'blur' }]
+        return [
+          { required: true, message: '账号不能为空', trigger: 'blur' },
+          { type: 'email', message: '邮箱格式不正确', trigger: 'change' }
+        ]
       }
     },
     passwordRules: {
       type: Array,
       default: () => {
-        return [{ required: true, message: '密码不能为空', trigger: 'blur' }]
+        return [
+          { required: true, message: '密码不能为空', trigger: 'blur' },
+          {
+            type: 'string',
+            min: 6,
+            message: '密码长度至少为6位',
+            trigger: 'change'
+          }
+        ]
+      }
+    },
+    codeRules: {
+      type: Array,
+      default: () => {
+        return [
+          { required: true, message: '验证码不能为空', trigger: 'blur' },
+          {
+            type: 'string',
+            len: 4,
+            message: '验证码长度有误',
+            trigger: 'change'
+          }
+        ]
       }
     }
   },
@@ -79,7 +114,8 @@ export default {
     rules () {
       return {
         username: this.userNameRules,
-        password: this.passwordRules
+        password: this.passwordRules,
+        code: this.codeRules
       }
     }
   },
@@ -92,9 +128,7 @@ export default {
       })
     },
     _getCode () {
-      getCode(
-        this.$store.state.sid
-      ).then((res) => {
+      getCode(this.$store.state.sid).then((res) => {
         const { code, data } = res
         if (code === 200) {
           this.svg = data
