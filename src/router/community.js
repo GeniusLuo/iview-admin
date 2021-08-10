@@ -2,20 +2,29 @@ import Main from '@/components/main/index'
 
 export default [
   {
-    path: '/manage',
-    name: 'manage',
+    path: '/content',
+    name: 'article_management',
     component: Main,
     meta: {
-      title: '文章管理',
-      icon: 'ios-book'
+      icon: 'logo-buffer',
+      title: '文章管理'
     },
     children: [
       {
-        path: 'tables_page',
-        name: 'tables_page',
+        path: 'index',
+        name: 'content_management',
         meta: {
           icon: 'md-grid',
-          title: '文章内容管理'
+          title: '内容管理'
+        },
+        component: () => import('@/view/content/index.vue')
+      },
+      {
+        path: 'tags',
+        name: 'tags_management',
+        meta: {
+          icon: 'md-grid',
+          title: '标签管理'
         },
         component: () => import('@/view/components/tables/tables.vue')
       }

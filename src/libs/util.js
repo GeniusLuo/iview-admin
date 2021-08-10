@@ -391,6 +391,7 @@ export const scrollTop = (el, from = 0, to, duration = 500, endCallback) => {
  * @param {Object} routeItem 路由对象
  * @param {Object} vm Vue实例
  */
+
 export const setTitle = (routeItem, vm) => {
   const handledRoute = getRouteTitleHandled(routeItem)
   const pageTitle = showTitle(handledRoute, vm)
