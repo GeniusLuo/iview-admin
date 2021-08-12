@@ -29,5 +29,25 @@ export default [
         component: () => import('@/view/components/tables/tables.vue')
       }
     ]
+  },
+  {
+    path: '/user',
+    name: 'user_management',
+    component: Main,
+    meta: {
+      icon: 'logo-buffer',
+      title: '文章管理'
+    },
+    children: [
+      {
+        path: 'index',
+        name: 'user_management',
+        meta: {
+          icon: 'md-grid',
+          title: '内容管理'
+        },
+        component: () => import('@/view/content/index.vue')
+      }
+    ]
   }
 ]
