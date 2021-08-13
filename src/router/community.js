@@ -32,21 +32,21 @@ export default [
   },
   {
     path: '/user',
-    name: 'user_management',
+    name: 'user',
     component: Main,
     meta: {
-      icon: 'logo-buffer',
-      title: '文章管理'
+      icon: 'md-albums',
+      title: '用户管理'
     },
     children: [
       {
         path: 'index',
         name: 'user_management',
         meta: {
-          icon: 'md-grid',
-          title: '内容管理'
+          icon: 'ios-people',
+          title: '用户管理'
         },
-        component: () => import('@/view/content/index.vue')
+        component: () => import('@/view/user/index.vue')
       }
     ]
   }
