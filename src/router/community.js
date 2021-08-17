@@ -26,7 +26,7 @@ export default [
           icon: 'md-grid',
           title: '标签管理'
         },
-        component: () => import('@/view/components/tables/tables.vue')
+        component: () => import('@/view/content/index.vue')
       }
     ]
   },
